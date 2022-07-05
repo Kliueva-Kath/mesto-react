@@ -1,0 +1,9 @@
+.image__title {
+  font-family: "Inter", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.25;
+  color: #ffffff;
+  align-self: flex-start;
+  margin: 0;
+}

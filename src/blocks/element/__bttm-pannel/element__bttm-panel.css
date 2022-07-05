@@ -1,0 +1,8 @@
+.element__bttm-panel {
+  padding-left: 21px;
+  padding-right: 21px;
+  display: flex;
+  justify-content: space-between;
+  min-height: 79px;
+  align-items: center;
+}

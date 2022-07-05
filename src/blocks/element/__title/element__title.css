@@ -1,0 +1,12 @@
+.element__title {
+  font-family: "Inter", "Arial", sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1.21;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  /* ограничила максимальную ширину теста, исключив лайк с небольшим буфером*/
+  max-width: calc(100% - 28px);
+}

@@ -1,0 +1,11 @@
+.form__save-button_inactive {
+  background-color: #ffffff;
+  opacity: 0.2;
+  border: 1px solid #000000;
+  color: #000000;
+}
+
+.form__save-button_inactive:hover {
+  cursor: default;
+  opacity: 0.2;
+}

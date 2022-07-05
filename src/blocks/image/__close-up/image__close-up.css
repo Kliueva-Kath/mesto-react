@@ -1,0 +1,6 @@
+.image__close-up {
+  max-width: 75vw;
+  max-height: 75vh;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
