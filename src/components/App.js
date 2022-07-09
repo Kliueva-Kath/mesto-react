@@ -2,13 +2,146 @@ import React from "react";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
+import PopupWithForm from "./PopupWithForm.js";
+import ImagePopup from "./ImagePopup.js";
 
 function App() {
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] =
+    React.useState(false);
+  function handleEditProfileClick() {
+    setEditProfilePopupOpen(!isEditProfilePopupOpen);
+  }
+
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+  function handleEditAvatarClick() {
+    setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+  }
+
+  const [isAddCardPopupOpen, setAddCardPopupOpen] = React.useState(false);
+  function handleAddCardClick() {
+    setAddCardPopupOpen(!isAddCardPopupOpen);
+  }
+
+  const [selectedCard, setSelectedCard] = React.useState({});
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
+
+  function closeAllPopups() {
+    setEditProfilePopupOpen(false);
+    setEditAvatarPopupOpen(false);
+    setAddCardPopupOpen(false);
+    setSelectedCard({});
+  }
+
   return (
-    <div className="page">
-      <Header />
-      <Main />
-      <Footer />
+    <div className="body">
+      <div className="page">
+        <Header />
+        <Main
+          onEditProfile={handleEditProfileClick}
+          onAddCard={handleAddCardClick}
+          onEditAvatar={handleEditAvatarClick}
+        />
+
+        <PopupWithForm
+          name="edit-profile"
+          title="Редактировать профиль"
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+        >
+          <input
+            type="text"
+            className="form__input"
+            id="name-input"
+            name="nameInput"
+            placeholder="Имя"
+            minLength="2"
+            maxLength="40"
+            required
+          />
+          <span className="form__input-error name-input-error"></span>
+          <input
+            type="text"
+            className="form__input"
+            id="job-input"
+            name="jobInput"
+            placeholder="О себе"
+            minLength="2"
+            maxLength="200"
+            required
+          />
+          <span className="form__input-error job-input-error"></span>
+          <button className="button form__save-button" type="submit">
+            Сохранить
+          </button>
+        </PopupWithForm>
+
+        <PopupWithForm
+          name="change-avatar"
+          title="Обновить аватар"
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+        >
+          <input
+            type="url"
+            className="form__input"
+            id="avatar-url-input"
+            name="avatarInput"
+            placeholder="Ссылка на фото"
+            required
+          />
+          <span className="form__input-error avatar-url-input-error"></span>
+          <button className="button form__save-button" type="submit">
+            Сохранить
+          </button>
+        </PopupWithForm>
+
+        <PopupWithForm
+          name="add-card"
+          title="Новое место"
+          isOpen={isAddCardPopupOpen}
+          onClose={closeAllPopups}
+        >
+          <input
+            type="text"
+            className="form__input"
+            id="place-input"
+            name="name"
+            placeholder="Название"
+            minLength="2"
+            maxLength="30"
+            required
+          />
+          <span className="form__input-error place-input-error"></span>
+          <input
+            type="url"
+            className="form__input"
+            id="url-input"
+            name="link"
+            placeholder="Ссылка на картинку"
+            required
+          />
+          <span className="form__input-error url-input-error"></span>
+          <button className="button form__save-button" type="submit">
+            Создать
+          </button>
+        </PopupWithForm>
+
+        <PopupWithForm name="delete-card" title="Вы уверены?">
+          <button className="button form__save-button" type="submit">
+            Да
+          </button>
+        </PopupWithForm>
+
+        <ImagePopup
+          onClose={closeAllPopups}
+          card={selectedCard}
+          onCardClick={handleCardClick}
+        />
+
+        <Footer />
+      </div>
     </div>
   );
 }
