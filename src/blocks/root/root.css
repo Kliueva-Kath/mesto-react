@@ -1,6 +1,7 @@
 .page {
   background: black;
   min-width: 320px;
-  max-width: 1280px;
+  width: 100vw;
+  height: 100%;
   margin: 0 auto;
 }

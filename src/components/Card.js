@@ -14,6 +14,7 @@ function Card(props) {
         className="element__photo"
         src={`${props.card.link}`}
         alt={`${props.card.name}`}
+        onClick={handleClick}
       />
       <div className="element__bttm-panel">
         <h2 className="element__title">{props.card.name}</h2>

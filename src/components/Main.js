@@ -1,7 +1,7 @@
 import React from "react";
 import App from "./App.js";
 import PopupWithForm from "./PopupWithForm.js";
-import api from "../utils/Api.js";
+import api from "../utils/api.js";
 import Card from "./Card.js";
 
 function Main(props) {
@@ -69,27 +69,14 @@ function Main(props) {
       <section className="elements">
         <ul className="elements__container">
           {cards.map((card) => {
-            return <Card key={card._id} card={card} />;
+            return (
+              <Card
+                key={card._id}
+                card={card}
+                onCardClick={props.onCardClick}
+              />
+            );
           })}
-          {/* <template className="cards-template">
-            <li className="element">
-              <button
-                className="button element__delete-button"
-                type="button"
-              ></button>
-              <img className="element__photo" />
-              <div className="element__bttm-panel">
-                <h2 className="element__title"></h2>
-                <div className="element__likes">
-                  <button
-                    className="button element__like"
-                    type="button"
-                  ></button>
-                  <p className="element__likes-count"></p>
-                </div>
-              </div>
-            </li>
-          </template> */}
         </ul>
       </section>
     </main>
