@@ -1,22 +1,16 @@
 import React from "react";
 import App from "./App.js";
 
-function ImagePopup(props) {
+function ImagePopup({ isOpen, card, onClose }) {
   return (
-    <div
-      className={`popup popup_type_image ${props.isOpen ? "popup_opened" : ""}`}
-    >
+    <div className={`popup popup_type_image ${isOpen && "popup_opened"}`}>
       <div className="image">
-        <img
-          className="image__close-up"
-          src={props.card.link}
-          alt={props.card.name}
-        />
-        <h2 className="image__title"></h2>
+        <img className="image__close-up" src={card.link} alt={card.name} />
+        <h2 className="image__title">{card.name}</h2>
         <button
           className="button popup__close-icon"
           type="button"
-          onClick={props.onClose}
+          onClick={onClose}
         ></button>
       </div>
     </div>

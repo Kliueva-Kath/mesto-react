@@ -1,16 +1,16 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import App from "./App.js";
 import PopupWithForm from "./PopupWithForm.js";
-import api from "../utils/api.js";
+import api from "../utils/Api.js";
 import Card from "./Card.js";
 
-function Main(props) {
-  const [userName, setUserName] = React.useState("");
-  const [userDescription, setUserDescription] = React.useState("");
-  const [userAvatar, setUserAvatar] = React.useState("");
-  const [cards, setCards] = React.useState([]);
+function Main({ onEditAvatar, onEditProfile, onAddCard, onCardClick }) {
+  const [userName, setUserName] = useState("");
+  const [userDescription, setUserDescription] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
+  const [cards, setCards] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     api
       .getUserInfo()
       .then((userInfo) => {
@@ -21,9 +21,6 @@ function Main(props) {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
-
-  React.useEffect(() => {
     api
       .getCards()
       .then((cardsInfo) => {
@@ -45,7 +42,7 @@ function Main(props) {
             <button
               className="button profile__avatar-edit"
               type="button"
-              onClick={props.onEditAvatar}
+              onClick={onEditAvatar}
             ></button>
           </div>
 
@@ -55,14 +52,14 @@ function Main(props) {
             <button
               className="button profile__edit-button"
               type="button"
-              onClick={props.onEditProfile}
+              onClick={onEditProfile}
             ></button>
           </div>
         </div>
         <button
           className="button profile__add-button"
           type="button"
-          onClick={props.onAddCard}
+          onClick={onAddCard}
         ></button>
       </section>
 
@@ -70,11 +67,7 @@ function Main(props) {
         <ul className="elements__container">
           {cards.map((card) => {
             return (
-              <Card
-                key={card._id}
-                card={card}
-                onCardClick={props.onCardClick}
-              />
+              <Card key={card._id} card={card} onCardClick={onCardClick} />
             );
           })}
         </ul>
