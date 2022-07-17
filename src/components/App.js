@@ -3,6 +3,7 @@ import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
 import PopupWithForm from "./PopupWithForm.js";
+import EditProfilePopup from "./EditProfilePopup.js";
 import ImagePopup from "./ImagePopup.js";
 import api from "../utils/Api.js";
 import CurrentUserContext from "../contexts/CurrentUserContext.js";
@@ -52,6 +53,19 @@ function App() {
     setSelectedCard({});
   }
 
+  function handleUpdateUser(userInfo) {
+    api
+      .editUserInfo(userInfo)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+        console.log(currentUser);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -63,36 +77,11 @@ function App() {
           onCardClick={handleCardClick}
         />
 
-        <PopupWithForm
-          name="edit-profile"
-          title="Редактировать профиль"
-          buttonText="Cохранить"
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-        >
-          <input
-            type="text"
-            className="form__input"
-            id="name-input"
-            name="nameInput"
-            placeholder="Имя"
-            minLength="2"
-            maxLength="40"
-            required
-          />
-          <span className="form__input-error name-input-error"></span>
-          <input
-            type="text"
-            className="form__input"
-            id="job-input"
-            name="jobInput"
-            placeholder="О себе"
-            minLength="2"
-            maxLength="200"
-            required
-          />
-          <span className="form__input-error job-input-error"></span>
-        </PopupWithForm>
+          onUpdateUser={handleUpdateUser}
+        />
 
         <PopupWithForm
           name="change-avatar"
