@@ -55,11 +55,10 @@ function App() {
 
   function handleUpdateUser(userInfo) {
     api
-      .editUserInfo(userInfo)
+      .setUserInfo(userInfo)
       .then((res) => {
         setCurrentUser(res);
         closeAllPopups();
-        console.log(currentUser);
       })
       .catch((err) => {
         console.log(err);

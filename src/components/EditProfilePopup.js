@@ -4,31 +4,22 @@ import CurrentUserContext from "../contexts/CurrentUserContext.js";
 
 export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  // const [name, setName] = useState("");
+  // const [description, setDescription] = useState("");
+  const [values, setValues] = useState({ name: "", about: "" });
 
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
+    setValues({ name: currentUser.name, about: currentUser.about });
   }, [currentUser, isOpen]);
 
-  function handleNameChange(evt) {
-    setName(evt.target.value);
-  }
-
-  function handleDescriptionChange(evt) {
-    setDescription(evt.target.value);
+  function handleChange(evt) {
+    const { value, name } = evt.target;
+    setValues({ ...values, [name]: value });
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
-
-    // Передаём значения управляемых компонентов во внешний обработчик
-    onUpdateUser({
-      name,
-      about: description,
-    });
-    console.log("отправилось");
+    onUpdateUser(values);
   }
 
   return (
@@ -48,8 +39,9 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         placeholder="Имя"
         minLength="2"
         maxLength="40"
-        value={name || ""}
-        onChange={handleNameChange}
+        value={values.name || ""}
+        name="name"
+        onChange={handleChange}
         required
       />
       <span className="form__input-error name-input-error"></span>
@@ -61,8 +53,9 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         placeholder="О себе"
         minLength="2"
         maxLength="200"
-        value={description || ""}
-        onChange={handleDescriptionChange}
+        value={values.about || ""}
+        name="about"
+        onChange={handleChange}
         required
       />
       <span className="form__input-error job-input-error"></span>
