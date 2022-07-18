@@ -36,12 +36,12 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  editAvatar(userAvatar) {
+  editAvatar(userInfo) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: userAvatar,
+        avatar: userInfo.avatar,
       }),
     }).then(this._checkResponse);
   }
