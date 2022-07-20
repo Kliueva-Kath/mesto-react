@@ -1,5 +1,4 @@
 import React from "react";
-import App from "./App.js";
 
 function ImagePopup({ isOpen, card, onClose }) {
   return (

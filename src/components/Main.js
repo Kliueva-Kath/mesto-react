@@ -5,11 +5,19 @@ import api from "../utils/Api.js";
 import Card from "./Card.js";
 import CurrentUserContext from "../contexts/CurrentUserContext.js";
 
-function Main({ onEditAvatar, onEditProfile, onAddCard, onCardClick }) {
+function Main({
+  onEditAvatar,
+  onEditProfile,
+  onAddCard,
+  onCardClick,
+  cards,
+  onCardLike,
+  onCardDelete,
+}) {
   const currentUser = useContext(CurrentUserContext);
-  const [cards, setCards] = useState([]);
+  // const [cards, setCards] = useState([]);
 
-  function handleCardLike(card) {
+  /*   function handleCardLike(card) {
     const isLiked = card.likes.some((item) => item._id === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
       setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
@@ -20,9 +28,9 @@ function Main({ onEditAvatar, onEditProfile, onAddCard, onCardClick }) {
     api.deleteCard(card._id).then(() => {
       setCards((state) => state.filter((c) => c._id !== card._id));
     });
-  }
+  } */
 
-  useEffect(() => {
+  /*   useEffect(() => {
     api
       .getCards()
       .then((cardsInfo) => {
@@ -31,7 +39,7 @@ function Main({ onEditAvatar, onEditProfile, onAddCard, onCardClick }) {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, []); */
 
   return (
     <main className="content">
@@ -73,8 +81,8 @@ function Main({ onEditAvatar, onEditProfile, onAddCard, onCardClick }) {
                 key={card._id}
                 card={card}
                 onCardClick={onCardClick}
-                onCardLike={handleCardLike}
-                onCardDelete={handleCardDelete}
+                onCardLike={onCardLike}
+                onCardDelete={onCardDelete}
               />
             );
           })}
