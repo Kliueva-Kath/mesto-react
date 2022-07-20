@@ -8,7 +8,7 @@ export default function AddPlacePopup({
   isLoading,
 }) {
   const [values, setValues] = useState({ name: "", link: "" });
-
+  // установка значений инпутов при открытии попапа
   useEffect(() => {
     setValues({ name: "", about: "" });
   }, [isOpen]);

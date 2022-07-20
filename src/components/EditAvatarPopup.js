@@ -9,13 +9,13 @@ export default function EditAvatarPopup({
 }) {
   const avatarInputRef = useRef();
 
+  // установка значения инпута при открытии попапа
   useEffect(() => {
     avatarInputRef.current.value = "";
   }, [isOpen]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
-
     onUpdateAvatar({
       avatar: avatarInputRef.current.value,
     });

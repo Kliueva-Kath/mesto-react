@@ -11,6 +11,7 @@ export default function EditProfilePopup({
   const currentUser = useContext(CurrentUserContext);
   const [values, setValues] = useState({ name: "", about: "" });
 
+  // установка значений инпутов при открытии попапа и при получении данных о пользователе
   useEffect(() => {
     setValues({ name: currentUser.name, about: currentUser.about });
   }, [currentUser, isOpen]);
@@ -39,7 +40,6 @@ export default function EditProfilePopup({
         type="text"
         className="form__input"
         id="name-input"
-        name="nameInput"
         placeholder="Имя"
         minLength="2"
         maxLength="40"
@@ -53,7 +53,6 @@ export default function EditProfilePopup({
         type="text"
         className="form__input"
         id="job-input"
-        name="jobInput"
         placeholder="О себе"
         minLength="2"
         maxLength="200"

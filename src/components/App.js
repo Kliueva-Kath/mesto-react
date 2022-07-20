@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Footer from "./Footer.js";
-import PopupWithForm from "./PopupWithForm.js";
 import EditProfilePopup from "./EditProfilePopup.js";
 import EditAvatarPopup from "./EditAvatarPopup.js";
 import AddPlacePopup from "./AddPlacePopup.js";
+import ConfirmDeleteCard from "./ConfirmDeleteCard.js";
 import ImagePopup from "./ImagePopup.js";
 import api from "../utils/Api.js";
 import CurrentUserContext from "../contexts/CurrentUserContext.js";
@@ -15,14 +15,17 @@ function App() {
 
   const [cards, setCards] = useState([]);
 
+  // стейты для проверки открыт ли попап для каждого попапа
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [isAddCardPopupOpen, setAddCardPopupOpen] = useState(false);
+  const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [isImagePopupOpen, setImagePopupOpen] = useState(false);
-
+  // рендер текста для кнопкок формы после нажатия на сабмит
   const [isLoading, setIsLoading] = useState(false);
 
+  // получаем и устанавливаем информацию о пользователе с сервера
   useEffect(() => {
     api
       .getUserInfo()
@@ -34,6 +37,7 @@ function App() {
       });
   }, []);
 
+  // получаем и массив карточек с сервера
   useEffect(() => {
     api
       .getCards()
@@ -45,6 +49,7 @@ function App() {
       });
   }, []);
 
+  // событие нажатия на кнопку лайка
   function handleCardLike(card) {
     const isLiked = card.likes.some((item) => item._id === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
@@ -52,37 +57,56 @@ function App() {
     });
   }
 
+  // функция удаления карточки
   function handleCardDelete(card) {
-    api.deleteCard(card._id).then(() => {
-      setCards((state) => state.filter((c) => c._id !== card._id));
-    });
+    setIsLoading(true);
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== card._id));
+        closeAllPopups();
+      })
+      .finally(() => setIsLoading(false));
   }
 
+  // событие нажатия на кнопку удаления карточки
+  function handleDeleteCardClick(card) {
+    setDeleteCardPopupOpen(!isDeleteCardPopupOpen);
+    setSelectedCard(card);
+  }
+
+  // событие нажатия на кнопку редактирования профиля
   function handleEditProfileClick() {
     setEditProfilePopupOpen(!isEditProfilePopupOpen);
   }
 
+  // событие нажатия на кнопку изменения аватара
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   }
 
+  // событие нажатия на кнопку добавления новой карточки
   function handleAddCardClick() {
     setAddCardPopupOpen(!isAddCardPopupOpen);
   }
 
+  // событие нажатия на картинку - открывается попап с увеличенным изображением
   function handleCardClick(card) {
     setSelectedCard(card);
     setImagePopupOpen(!isImagePopupOpen);
   }
 
+  // функция закрытия всех попапов
   function closeAllPopups() {
     setEditProfilePopupOpen(false);
     setEditAvatarPopupOpen(false);
     setAddCardPopupOpen(false);
     setImagePopupOpen(false);
+    setDeleteCardPopupOpen(false);
     setSelectedCard({});
   }
 
+  // функция изменения информации о пользователе - name, about
   function handleUpdateUser(userInfo) {
     setIsLoading(true);
     api
@@ -97,6 +121,7 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
+  // функция изменения аватара
   function handleUpdateAvatar(userInfo) {
     setIsLoading(true);
     api
@@ -111,6 +136,7 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
+  // функция добавления карточки
   function handleAddCard(newCard) {
     setIsLoading(true);
     api
@@ -125,6 +151,7 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
+  // JSX-разметка
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -137,6 +164,7 @@ function App() {
           cards={cards}
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
+          onDeleteCardClick={handleDeleteCardClick}
         />
 
         <EditProfilePopup
@@ -153,7 +181,13 @@ function App() {
           isLoading={isLoading}
         />
 
-        <PopupWithForm name="delete-card" title="Вы уверены?" buttonText="Да" />
+        <ConfirmDeleteCard
+          isOpen={isDeleteCardPopupOpen}
+          onClose={closeAllPopups}
+          onCardDelete={handleCardDelete}
+          card={selectedCard}
+          isLoading={isLoading}
+        />
 
         <AddPlacePopup
           isOpen={isAddCardPopupOpen}
