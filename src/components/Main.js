@@ -15,32 +15,6 @@ function Main({
   onCardDelete,
 }) {
   const currentUser = useContext(CurrentUserContext);
-  // const [cards, setCards] = useState([]);
-
-  /*   function handleCardLike(card) {
-    const isLiked = card.likes.some((item) => item._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
-  }
-
-  function handleCardDelete(card) {
-    api.deleteCard(card._id).then(() => {
-      setCards((state) => state.filter((c) => c._id !== card._id));
-    });
-  } */
-
-  /*   useEffect(() => {
-    api
-      .getCards()
-      .then((cardsInfo) => {
-        setCards(cardsInfo);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []); */
-
   return (
     <main className="content">
       <section className="profile">

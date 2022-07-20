@@ -4,10 +4,6 @@
 
 @import url("./vendor/fonts/fonts.css");
 
-/*стиль для всего body*/
-
-@import url("./blocks/body/body.css");
-
 /*общие правила для страницы*/
 
 @import url("./blocks/root/root.css");
