@@ -21,6 +21,8 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [isImagePopupOpen, setImagePopupOpen] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     api
       .getUserInfo()
@@ -82,6 +84,7 @@ function App() {
   }
 
   function handleUpdateUser(userInfo) {
+    setIsLoading(true);
     api
       .setUserInfo(userInfo)
       .then((res) => {
@@ -90,10 +93,12 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleUpdateAvatar(userInfo) {
+    setIsLoading(true);
     api
       .editAvatar(userInfo)
       .then((res) => {
@@ -102,10 +107,12 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function handleAddCard(newCard) {
+    setIsLoading(true);
     api
       .addCard(newCard)
       .then((res) => {
@@ -114,7 +121,8 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   return (
@@ -135,12 +143,14 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+          isLoading={isLoading}
         />
 
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+          isLoading={isLoading}
         />
 
         <PopupWithForm name="delete-card" title="Вы уверены?" buttonText="Да" />
@@ -149,6 +159,7 @@ function App() {
           isOpen={isAddCardPopupOpen}
           onClose={closeAllPopups}
           onAddCard={handleAddCard}
+          isLoading={isLoading}
         />
 
         <ImagePopup

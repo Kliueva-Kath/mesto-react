@@ -1,5 +1,4 @@
 import React from "react";
-import App from "./App.js";
 
 function PopupWithForm({
   name,
@@ -9,6 +8,7 @@ function PopupWithForm({
   buttonText,
   onClose,
   onSubmit,
+  isLoading,
 }) {
   return (
     <div className={`popup popup_type_${name} ${isOpen && "popup_opened"}`}>
@@ -22,7 +22,7 @@ function PopupWithForm({
         >
           {children}
           <button className="button form__save-button" type="submit">
-            {buttonText}
+            {isLoading ? "Сохранение..." : buttonText}
           </button>
         </form>
         <button

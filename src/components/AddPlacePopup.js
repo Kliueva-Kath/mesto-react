@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm.js";
 
-export default function AddPlacePopup({ isOpen, onClose, onAddCard }) {
+export default function AddPlacePopup({
+  isOpen,
+  onClose,
+  onAddCard,
+  isLoading,
+}) {
   const [values, setValues] = useState({ name: "", link: "" });
 
   useEffect(() => {
@@ -26,6 +31,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddCard }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      isLoading={isLoading}
     >
       <input
         type="text"

@@ -1,7 +1,4 @@
-import { useEffect, useState, useContext } from "react";
-import App from "./App.js";
-import PopupWithForm from "./PopupWithForm.js";
-import api from "../utils/Api.js";
+import { useContext } from "react";
 import Card from "./Card.js";
 import CurrentUserContext from "../contexts/CurrentUserContext.js";
 
