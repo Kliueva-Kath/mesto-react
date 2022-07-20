@@ -23,6 +23,7 @@ export default function ConfirmDeleteCard({
       onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading}
+      loadingText="Удаление..."
     />
   );
 }

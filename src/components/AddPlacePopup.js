@@ -32,6 +32,7 @@ export default function AddPlacePopup({
       onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading}
+      loadingText="Сохранение..."
     >
       <input
         type="text"

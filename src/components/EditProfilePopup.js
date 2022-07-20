@@ -35,6 +35,7 @@ export default function EditProfilePopup({
       onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading}
+      loadingText="Сохранение..."
     >
       <input
         type="text"

@@ -30,6 +30,7 @@ export default function EditAvatarPopup({
       onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading}
+      loadingText="Сохранение..."
     >
       <input
         type="url"
