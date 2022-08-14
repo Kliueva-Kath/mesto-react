@@ -1,6 +1,6 @@
 # Проект: Место
 
-**Проект можно посмотреть по ссылке на** [GitHub Pages](https://kliueva-kath.github.io/mesto/)
+**Проект можно посмотреть по ссылке на** [GitHub Pages](https://kliueva-kath.github.io/mesto-react/)
 
 ## Описание
 
